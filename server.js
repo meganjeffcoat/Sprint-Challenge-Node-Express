@@ -35,7 +35,7 @@ const Projects = require('./data/helpers/projectModel');
 
 //// Action Model ////
 //GET
-server.get('/', async (req, res) => {
+server.get('/actions', async (req, res) => {
     try {
         const actions = await Actions.get();
         res.status(200).json(actions);
@@ -45,7 +45,7 @@ server.get('/', async (req, res) => {
     }
 });
 // //GET by id
-server.get('/:id', async (req, res) => {
+server.get('/actions/:id', async (req, res) => {
     try {
         const action = await Actions.get(req.params.id);
         if (action) {
@@ -59,7 +59,7 @@ server.get('/:id', async (req, res) => {
     }
 });
 // // POST 
-server.post('/',  async (req, res) => {
+server.post('/actions',  async (req, res) => {
     if (!req.body.description || !req.body.description === '') {
         res.status(400).json({message:'Please provide valid name'})
     }
@@ -73,7 +73,7 @@ server.post('/',  async (req, res) => {
 });
 
 // // DELETE 
-server.delete('/:id', async (req, res) => {
+server.delete('/actions/:id', async (req, res) => {
     try {
         const count = await Actions.remove(req.params.id);
         if (count > 0) {
@@ -88,7 +88,7 @@ server.delete('/:id', async (req, res) => {
 });
 
 // // PUT 
-server.put('/:id', async (req, res) => {
+server.put('/actions/:id', async (req, res) => {
     try {
         const action = await Actions.update(req.params.id, req.body);
         if(action) {
@@ -105,7 +105,7 @@ server.put('/:id', async (req, res) => {
 //// PROJECT MODEL ////
 
 // GET
-server.get('/', async (req, res) => {
+server.get('/projects', async (req, res) => {
     try {
         const projects = await Projects.get();
         res.status(200).json(projects);
@@ -115,7 +115,7 @@ server.get('/', async (req, res) => {
     }
 });
 //GET by id
-server.get('/:id', async (req, res) => {
+server.get('/projects/:id', async (req, res) => {
     try {
         const project = await Projects.get(req.params.id);
         if (project) {
@@ -130,7 +130,7 @@ server.get('/:id', async (req, res) => {
 });
 
 // POST 
-server.post('/', async (req, res) => {
+server.post('/projects', async (req, res) => {
     if (!req.body.name || req.body.name === '' || !req.body.description) {
         res.status(400).json({message:'Please provide valid text and user id'})
     }
@@ -144,7 +144,7 @@ server.post('/', async (req, res) => {
 });
 
 // DELETE 
-server.delete('/:id', async (req, res) => {
+server.delete('/projects/:id', async (req, res) => {
     try {
         const count = await Projects.remove(req.params.id);
         if (count > 0) {
@@ -159,7 +159,7 @@ server.delete('/:id', async (req, res) => {
 });
 
 // PUT 
-server.put('/:id', async (req, res) => {
+server.put('/projects/:id', async (req, res) => {
     try {
         const project = await Projects.update(req.params.id, req.body);
         if(project) {
@@ -173,7 +173,7 @@ server.put('/:id', async (req, res) => {
     }
 })
 
-server.get('/:id/actions', async (req,res) => {
+server.get('/projects/:id/actions', async (req,res) => {
     try {
         const project = await Projects.getProjectActions(req.params.id);
         if(project) {
